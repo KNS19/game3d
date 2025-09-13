@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkm1asxrk2u6w"]
+[gd_scene load_steps=16 format=3 uid="uid://dkm1asxrk2u6w"]
 
 [ext_resource type="Script" uid="uid://blumtus4dgelp" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dixafdnqrreje" path="res://player.tscn" id="1_ig7tw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://calai1fb5sc8s" path="res://art/Spooky Tree.glb" id="3_7mycd"]
 [ext_resource type="FontFile" uid="uid://btihdlcv3jahu" path="res://fonts/Montserrat-Medium.ttf" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://drxnj0wffwl0m" path="res://score_label.gd" id="5_7mycd"]
+[ext_resource type="FontFile" uid="uid://csunpy161b10d" path="res://THSarabunNew/THSarabunNew Bold.ttf" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://wpcpa6mes8up" path="res://art/Grave.glb" id="6_7mycd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
@@ -32,6 +33,8 @@ default_font = ExtResource("4_lquwl")
 default_font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_272bh"]
+font = ExtResource("6_5vw27")
+font_size = 22
 font_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
