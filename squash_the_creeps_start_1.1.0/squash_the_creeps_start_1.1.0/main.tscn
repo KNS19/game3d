@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dkm1asxrk2u6w"]
+[gd_scene load_steps=15 format=3 uid="uid://dkm1asxrk2u6w"]
 
 [ext_resource type="Script" uid="uid://blumtus4dgelp" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dixafdnqrreje" path="res://player.tscn" id="1_ig7tw"]
@@ -30,6 +30,9 @@ point_count = 5
 [sub_resource type="Theme" id="Theme_272bh"]
 default_font = ExtResource("4_lquwl")
 default_font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_272bh"]
+font_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -135,6 +138,15 @@ offset_bottom = 48.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Score: 0"
 script = ExtResource("5_7mycd")
+
+[node name="Label" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 55.0
+offset_right = 241.0
+offset_bottom = 83.0
+text = "663380255-0 คณิศร ตรีศาสตร์"
+label_settings = SubResource("LabelSettings_272bh")
 
 [node name="Spooky Tree" parent="." instance=ExtResource("3_7mycd")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -12.7005, 2.69509, 8.7772)
