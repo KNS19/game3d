@@ -1,0 +1,161 @@
+[gd_scene load_steps=14 format=3 uid="uid://dkm1asxrk2u6w"]
+
+[ext_resource type="Script" uid="uid://blumtus4dgelp" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dixafdnqrreje" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://de45o45t5phjp" path="res://mob.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://calai1fb5sc8s" path="res://art/Spooky Tree.glb" id="3_7mycd"]
+[ext_resource type="FontFile" uid="uid://btihdlcv3jahu" path="res://fonts/Montserrat-Medium.ttf" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://drxnj0wffwl0m" path="res://score_label.gd" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://wpcpa6mes8up" path="res://art/Grave.glb" id="6_7mycd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(1, 0.54902, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7mycd"]
+material = SubResource("StandardMaterial3D_lquwl")
+
+[sub_resource type="Curve3D" id="Curve3D_272bh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -18.516, 0, 12.2737, 0, 0, 0, 0, 0, 0, 18.5719, 0, 12.1589, 0, 0, 0, 0, 0, 0, 18.5719, 0, -15.9728, 0, 0, 0, 0, 0, 0, -18.516, 0, -16.0876, 0, 0, 0, 0, 0, 0, -18.516, 0, 12.3885),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Theme" id="Theme_272bh"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 22
+
+[node name="Main" type="Node"]
+script = ExtResource("1_h2yge")
+mob_scene = ExtResource("2_1bvp3")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_ig7tw")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 8.68257e-08, 1.01997e-08, 0, -0.116671, 0.993171, 8.74228e-08, 0.993171, 0.116671, 0.117251, 14.6717, 0.147946)
+light_energy = 0.354
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504199, 0)
+
+[node name="Camerapivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camerapivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+projection = 1
+size = 25.0
+
+[node name="Cylinders" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4584, 0, -15.9268)
+mesh = SubResource("CylinderMesh_7mycd")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4584, 0, 12.0732)
+mesh = SubResource("CylinderMesh_7mycd")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5416, 0, -15.9268)
+mesh = SubResource("CylinderMesh_7mycd")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5416, 0, 12.0732)
+mesh = SubResource("CylinderMesh_7mycd")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_272bh")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(0.00309582, 0, -0.999995, 0, 1, 0, 0.999995, 0, 0.00309582, -18.516, 0, 12.2737)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_272bh")
+
+[node name="Retry" type="ColorRect" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 18.119
+anchor_bottom = 13.515
+offset_left = -1.0
+offset_top = -2.0
+offset_right = -3.76007
+offset_bottom = 4.39996
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.509804)
+
+[node name="Label" type="Label" parent="UserInterface/Retry"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -14.0
+offset_right = 109.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter to retry"
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 25.0
+offset_right = 94.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+script = ExtResource("5_7mycd")
+
+[node name="Spooky Tree" parent="." instance=ExtResource("3_7mycd")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -12.7005, 2.69509, 8.7772)
+
+[node name="Spooky Tree2" parent="." instance=ExtResource("3_7mycd")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 8.30845, 2.69509, -14.9523)
+
+[node name="Spooky Tree3" parent="." instance=ExtResource("3_7mycd")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -11.0379, 2.69509, -16.0103)
+
+[node name="Spooky Tree4" parent="." instance=ExtResource("3_7mycd")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 8.30845, 2.69509, 15.7823)
+
+[node name="Root Scene" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.13889, 0, 15.3265)
+
+[node name="Root Scene2" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2579, 0, -15.1669)
+
+[node name="Root Scene3" parent="." instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8073, 0, 8.61237)
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
